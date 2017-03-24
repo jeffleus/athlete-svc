@@ -25,58 +25,67 @@ var Athlete = sequelize.define('athlete', {
 	tableName: 'StudentSport'
 });
 
-module.exports.get = function(id) {
-    if (!id) return _getAll();
-    console.log('STUDENT: calling getSingle with id: ' + id);
+module.exports.get = function(id,filter) {
+    if (!id) return _getAll(filter);
+    console.log('ATHLETE: calling getSingle with id: ' + id);
     return sequelize.sync().then(function() {
-        return Athlete.findById(id).then(function(student) {
-            console.info('STUDENT: student-sport record found');
+        return Athlete.findById(id).then(function(athlete) {
+            console.info('ATHLETE: athlete-sport record found');
             return {
-                count: (student)?1:0,
-                students: [ (student)?student.dataValues:null ]
+                count: (athlete)?1:0,
+                athletes: [ (athlete)?athlete.dataValues:null ]
             };
         })
     });
 }
 
-function _getAll() {
-    console.log('STUDENT: calling getAll because no id provided');
+function _getAll(filter) {
+    console.log('ATHLETE: calling getAll because no id provided');
 	return sequelize.sync().then(function() {
-		return Athlete.findAndCountAll().then(function(result) {
-			var students = [];
-			result.rows.forEach(function(studentRow) {
-				students.push(studentRow.dataValues);
-			});
-			return {
-				count: result.count,
-				students: students
-			};
-		});
+        if (filter) {
+            var filterOption = {
+                where: {
+                    SportCodeID: filter 
+                } 
+            };
+            return Athlete.findAndCountAll(filterOption);
+        } else return Athlete.findAndCountAll();
+    }).then(function(result) {
+		//return Athlete.findAndCountAll().then(function(result) {
+        var athletes = [];
+        result.rows.forEach(function(athleteRow) {
+            athletes.push(athleteRow.dataValues);
+        });
+        return {
+            count: result.count,
+            athletes: athletes
+        };
 	});
 }
 
 module.exports.create = function(json) {
 	return sequelize.sync().then(function() {
-		console.info('STUDENT: create a new student using JSON provided');
-		console.error('need to add json validation to student creation');
+		console.info('ATHLETE: create a new athlete using JSON provided');
+		console.error('need to add json validation to athlete creation');
 		var ath = json;//JSON.parse(json);
-		return Athlete.create(ath).then(function(student) {
-			console.info('student successfully created');
-			return student;
+		return Athlete.create(ath).then(function(athlete) {
+			console.info('athlete successfully created');
+			return athlete;
 		});
 	});
 };
 
 module.exports.update = function(json) {
 	return sequelize.sync().then(function() {
-		console.info('STUDENT: update a single student using JSON provided');
-		console.error('need to add json validation to student update');
+		console.info('ATHLETE: update a single athlete using JSON provided');
+		console.error('need to add json validation to athlete update');
 		var ath = json;//JSON.parse(json);
+        console.log(ath);
 		return Athlete.update(
 			ath,
 			{ where: { AthleteID: ath.AthleteID } }
 		).then(function(result) {
-			console.info('STUDENT: student successfully updated');
+			console.info('ATHLETE: athlete successfully updated');
 			return result;
 		});
 	});
@@ -84,9 +93,9 @@ module.exports.update = function(json) {
 
 module.exports.delete = function(id) {
 	return sequelize.sync().then(function() {
-		console.info('STUDENT: delete a student by id');
+		console.info('ATHLETE: delete a athlete by id');
 		return Athlete.destroy({ where: { AthleteID: id } }).then(function(count) {
-			console.info('STUDENT: ' + count.toString() + ' students successfully deleted');
+			console.info('ATHLETE: ' + count.toString() + ' athletes successfully deleted');
 			return count;
 		});
 	});

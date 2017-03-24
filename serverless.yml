@@ -61,20 +61,26 @@ functions:
       - http:
           path: athlete/hello
           method: get
-  get:
+  list:
     handler: handler.get
     timeout: 3
     events:
       - http:
           path: athletes
           method: get
-  getall:
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:us-west-2:236711959566:userpool/us-west-2_HqCU8elu4
+  get:
     handler: handler.get
     timeout: 3
     events:
       - http:
           path: athletes/{aid}
           method: get
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:us-west-2:236711959566:userpool/us-west-2_HqCU8elu4
   create:
     handler: handler.create
     timeout: 3
@@ -82,6 +88,9 @@ functions:
       - http:
           path: athletes
           method: post
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:us-west-2:236711959566:userpool/us-west-2_HqCU8elu4
   update:
     handler: handler.update
     timeout: 3
@@ -89,13 +98,19 @@ functions:
       - http:
           path: athletes
           method: put
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:us-west-2:236711959566:userpool/us-west-2_HqCU8elu4
   delete:
     handler: handler.delete
     timeout: 3
     events:
       - http:
-          path: athletes/{eid}
+          path: athletes/{aid}
           method: delete
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:us-west-2:236711959566:userpool/us-west-2_HqCU8elu4
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

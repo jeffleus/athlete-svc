@@ -24,15 +24,21 @@ module.exports.get = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   var response = {
     statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
+      headers: {
+        "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS 
+      },
+      body: JSON.stringify({
+        message: 'Go Serverless v1.0! Your function executed successfully!',
+        input: event,
+    })
   };
     //check the event path params for an employee id to use during lookup
     var id = (event.pathParameters && event.pathParameters.aid) ? event.pathParameters.aid : null;
-    
-    Athletes.get(id).then(function(result) {
+    var filter = ['MBB','WBB'];     //event.queryStringParameters.filter.split(',');
+    filter = ((event.queryStringParameters != null) && (event.queryStringParameters.filter != null))?event.queryStringParameters.filter.split(','):null;
+    console.log(filter);
+    Athletes.get(id,filter).then(function(result) {
         if (result.count == 0) response.statusCode = 404;
         response.body = JSON.stringify({
             message: 'Successful get command found: ' + result.count,
@@ -51,16 +57,20 @@ module.exports.create = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   var response = {
     statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
+      headers: {
+        "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS 
+      },
+      body: JSON.stringify({
+        message: 'Go Serverless v1.0! Your function executed successfully!',
+        input: event,
+    })
   };
     
-    var json = event.body;
+    var json = JSON.parse(event.body);
     var athlete;
     
-    Athletes.create(json).then(function(emp) {
+    Athletes.create(json).then(function(ath) {
         console.log('athlete created, sending sms alert to confirm');
         athlete = ath;
         var msg = 'ATHLETE: successfully created a new athlete - ' + ath.AthleteID;
@@ -83,15 +93,19 @@ module.exports.update = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   var response = {
     statusCode: 200,
-    body: JSON.stringify({
-      message: 'Goodbye for Now! Your function executed successfully!',
-      input: event,
-    }),
+      headers: {
+        "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS 
+      },
+      body: JSON.stringify({
+        message: 'Go Serverless v1.0! Your function executed successfully!',
+        input: event,
+    })
   };
-    var json = event.body;
-    var id = (event.pathParameters && event.pathParameters.eid) ? event.pathParameters.eid : null;
+    var json = JSON.parse(event.body);
+    var id = (event.pathParameters && event.pathParameters.aid) ? event.pathParameters.aid : null;
 	
-  Athletes.update(event.body).then(function(athlete) {
+  Athletes.update(json).then(function(athlete) {
       console.log('athlete updated using the EMP utility module');
       callback(null, response);
   }).catch(function(err) {
@@ -103,15 +117,19 @@ module.exports.update = (event, context, callback) => {
 
 module.exports.delete = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  const response = {
+  var response = {
     statusCode: 200,
-    body: JSON.stringify({
-      message: 'Goodbye for Now! Your function executed successfully!',
-      input: event,
+      headers: {
+        "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS 
+      },
+      body: JSON.stringify({
+        message: 'Go Serverless v1.0! Your function executed successfully!',
+        input: event,
     })
   };
 
-  var id = (event.pathParameters && event.pathParameters.eid) ? event.pathParameters.eid : null;
+  var id = (event.pathParameters && event.pathParameters.aid) ? event.pathParameters.aid : null;
   if (!id) {
       callback(null, {
           statusCode: 400,

@@ -4,24 +4,30 @@ var args = process.argv.slice(2);
 //console.log(process.argv);
 
 var ath = {
-	AthleteID: 1165, 
+	AthleteID: 1168, 
 	firstName: "Garrett",
-	lastName: "Leininger",
-	sportCode: "MBB",
-	schoolid: "111222333"
 };
 
-Athlete.delete(1165).then(function(result) {
-//Athlete.update(ath).then(function(student) {
-//Athlete.create(ath).then(function(student) {
-//Athlete.get(args[0]).then(function(student) {
-	console.log(result);
-	//console.log(student);
+var id = 1;
+var filter = ('MBB').split(',');
+console.log("FILTER: ", filter);
+
+//Athletes.delete(1165).then(function(result) {
+Athletes.update(ath).then(function(student) {
+//Athletes.create(ath).then(function(student) {
+//Athletes.get(id, filter).then(function(student) {
+	//console.log(result);
+	console.log(student);
 	return;
 }).catch(function(err) {
 	console.error(err);
 	return;
 }).finally(function() {
-	Athlete.close();
+	Athletes.close();
 	return;
 });
+
+function _logTest(id, filter) {
+    console.log('ID: ', id);
+    console.log('FILTER: ', filter);
+};

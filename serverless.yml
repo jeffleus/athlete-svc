@@ -57,6 +57,41 @@ provider:
 functions:
   hello:
     handler: handler.hello
+  get:
+    handler: handler.get
+    timeout: 3
+    events:
+      - http:
+          path: athletes
+          method: get
+  getall:
+    handler: handler.get
+    timeout: 3
+    events:
+      - http:
+          path: athletes/{aid}
+          method: get
+  create:
+    handler: handler.create
+    timeout: 3
+    events:
+      - http:
+          path: athletes
+          method: post
+  update:
+    handler: handler.update
+    timeout: 3
+    events:
+      - http:
+          path: athletes
+          method: put
+  delete:
+    handler: handler.delete
+    timeout: 3
+    events:
+      - http:
+          path: athletes/{eid}
+          method: delete
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

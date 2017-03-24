@@ -1,4 +1,4 @@
-var Athlete = require('./Athlete');
+var Athletes = require('./Athletes');
 
 var args = process.argv.slice(2);
 //console.log(process.argv);

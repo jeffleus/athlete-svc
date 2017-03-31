@@ -8,14 +8,14 @@ var ath = {
 	firstName: "Garrett",
 };
 
-var id = 1;
+var id = '004399307';		//'704127186';
 var filter = ('MBB').split(',');
 console.log("FILTER: ", filter);
 
 //Athletes.delete(1165).then(function(result) {
 //Athletes.update(ath).then(function(student) {
 //Athletes.create(ath).then(function(student) {
-Athletes.get(id, filter).then(function(student) {
+Athletes.get(id).then(function(student) {
 	//console.log(result);
 	console.log(student);
 	return;

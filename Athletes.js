@@ -29,9 +29,14 @@ var Athlete = sequelize.define('athlete', {
 module.exports.get = function(id,filter) {
     if (!id) return _getAll(filter);
     console.log('ATHLETE: calling getSingle with id: ' + id);
+	var where = { where: { schoolid: id } };
+	console.info(where);
     return sequelize.sync().then(function() {
-        return Athlete.findById(id).then(function(athlete) {
+		return Athlete.findAll(where).then(function(result) {
+        //return Athlete.findById(id).then(function(athlete) {
             console.info('ATHLETE: athlete-sport record found');
+			console.info(result);
+			var athlete = (result.length > 0) ? result[0] : null;
             return {
                 count: (athlete)?1:0,
                 athletes: [ (athlete)?athlete.dataValues:null ]
@@ -95,7 +100,7 @@ module.exports.update = function(json) {
 module.exports.delete = function(id) {
 	return sequelize.sync().then(function() {
 		console.info('ATHLETE: delete a athlete by id');
-		return Athlete.destroy({ where: { AthleteID: id } }).then(function(count) {
+		return Athlete.destroy({ where: { schoolid: id } }).then(function(count) {
 			console.info('ATHLETE: ' + count.toString() + ' athletes successfully deleted');
 			return count;
 		});

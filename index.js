@@ -13,9 +13,9 @@ var filter = ('MBB').split(',');
 console.log("FILTER: ", filter);
 
 //Athletes.delete(1165).then(function(result) {
-Athletes.update(ath).then(function(student) {
+//Athletes.update(ath).then(function(student) {
 //Athletes.create(ath).then(function(student) {
-//Athletes.get(id, filter).then(function(student) {
+Athletes.get(id, filter).then(function(student) {
 	//console.log(result);
 	console.log(student);
 	return;

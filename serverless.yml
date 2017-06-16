@@ -75,6 +75,11 @@ functions:
           cors: true
           authorizer:
             arn: arn:aws:cognito-idp:us-west-2:236711959566:userpool/us-west-2_KMI3gTfQw
+      - schedule:
+          rate: rate(3 minutes)
+          enabled: true
+          input:
+            pathParameters: {"aid":"00001200"}
   create:
     handler: handler.create
     timeout: 3

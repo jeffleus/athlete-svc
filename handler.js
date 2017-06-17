@@ -58,9 +58,9 @@ module.exports.create = (event, context, callback) => {
     Athletes.create(json).then(function(ath) {
         console.log('athlete created, sending sms alert to confirm');
         athlete = ath;
-        var msg = 'ATHLETE: successfully created a new athlete - ' + ath.AthleteID;
-        return SMS.sendText(msg, '+13108771151');
-    }).then(function(result) {
+//        var msg = 'ATHLETE: successfully created a new athlete - ' + ath.AthleteID;
+//        return SMS.sendText(msg, '+13108771151');
+//    }).then(function(result) {
         response.body = JSON.stringify({
             message: 'Successfully created a new employee: ' + athlete.AthleteID,
             athlete: athlete

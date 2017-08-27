@@ -24,7 +24,8 @@ module.exports.get = (event, context, callback) => {
     filter = ((event.queryStringParameters != null) && (event.queryStringParameters.filter != null))?event.queryStringParameters.filter.split(','):null;
     console.log(filter);
     Athletes.get(id,filter).then(function(result) {
-        if (result.count == 0) response.statusCode = 404;
+// the 404 resp was causing errors in the $http client, so removed.
+//        if (result.count == 0) response.statusCode = 404;
         response.body = JSON.stringify({
             message: 'Successful get command found: ' + result.count,
             athletes: result.athletes

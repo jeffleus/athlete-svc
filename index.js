@@ -4,11 +4,12 @@ var args = process.argv.slice(2);
 //console.log(process.argv);
 
 var ath = {
-	AthleteID: 1168, 
-	firstName: "Garrett",
+	AthleteID: 2936, 
+	firstName: "Kelvin VT",
+	lastName: "Kersey"
 };
 
-var id = '004399307';		//'704127186';
+var id = '06237664';		//'704127186';
 var filter = ('MBB').split(',');
 console.log("FILTER: ", filter);
 

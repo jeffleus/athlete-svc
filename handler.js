@@ -1,6 +1,5 @@
 'use strict';
 var Athletes = require('./Athletes');
-var SMS = require('./SMS');
 const AWS = require('aws-sdk');
 AWS.config.region = 'us-west-2';
 var sns = new AWS.SNS();
@@ -56,11 +55,7 @@ module.exports.create = (event, context, callback) => {
     var athlete;
     
     Athletes.create(json).then(function(ath) {
-        console.log('athlete created, sending sms alert to confirm');
         athlete = ath;
-//        var msg = 'ATHLETE: successfully created a new athlete - ' + ath.AthleteID;
-//        return SMS.sendText(msg, '+13108771151');
-//    }).then(function(result) {
         response.body = JSON.stringify({
             message: 'Successfully created a new employee: ' + athlete.AthleteID,
             athlete: athlete

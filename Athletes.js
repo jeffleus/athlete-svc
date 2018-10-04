@@ -21,7 +21,8 @@ var Athlete = sequelize.define('athlete', {
   firstName: { type: Sequelize.STRING, field: 'firstname' }, 
   lastName: { type: Sequelize.STRING, field: 'lastname' }, 
   schoolid: { type: Sequelize.STRING, field: 'schoolsidnumber' },
-  sportCode: { type: Sequelize.STRING, field: 'SportCodeID' }
+  sportCode: { type: Sequelize.STRING, field: 'SportCodeID' },
+  isArchived: { type: Sequelize.BOOLEAN, field: 'isArchived' }
 }, {
 	tableName: 'StudentSport'
 });
@@ -29,7 +30,7 @@ var Athlete = sequelize.define('athlete', {
 module.exports.get = function(id,filter) {
     if (!id) return _getAll(filter);
     console.log('ATHLETE: calling getSingle with id: ' + id);
-	var where = { where: { schoolid: id } };
+	var where = { where: { schoolid: id, isArchived: 0 } };
 	console.info(where);
     return sequelize.sync().then(function() {
 		return Athlete.findAll(where).then(function(result) {

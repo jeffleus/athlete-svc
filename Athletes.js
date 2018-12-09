@@ -21,6 +21,7 @@ var Athlete = sequelize.define('athlete', {
   firstName: { type: Sequelize.STRING, field: 'firstname' }, 
   lastName: { type: Sequelize.STRING, field: 'lastname' }, 
   schoolid: { type: Sequelize.STRING, field: 'schoolsidnumber' },
+  isCoach: { type: Sequelize.BOOLEAN, field: 'isCoach' },
   sportCode: { type: Sequelize.STRING, field: 'SportCodeID' }
 }, {
 	tableName: 'StudentSport'

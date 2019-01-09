@@ -1,6 +1,5 @@
 'use strict';
 var Athletes = require('./Athletes');
-var SMS = require('./SMS');
 const AWS = require('aws-sdk');
 AWS.config.region = 'us-west-2';
 var sns = new AWS.SNS();

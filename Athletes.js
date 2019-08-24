@@ -21,7 +21,10 @@ var Athlete = sequelize.define('athlete', {
   firstName: { type: Sequelize.STRING, field: 'firstname' }, 
   lastName: { type: Sequelize.STRING, field: 'lastname' }, 
   schoolid: { type: Sequelize.STRING, field: 'schoolsidnumber' },
-  sportCode: { type: Sequelize.STRING, field: 'SportCodeID' }
+  sportCode: { type: Sequelize.STRING, field: 'SportCodeID' },
+  isEnabled: { type: Sequelize.STRING, field: 'isEnabled' },
+  hasAllergy: { type: Sequelize.STRING, field: 'hasAllergy' },
+  allergyNotes: { type: Sequelize.STRING, field: 'allergyNotes' }
 }, {
 	tableName: 'StudentSport'
 });

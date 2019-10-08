@@ -2,7 +2,6 @@
 var Athletes = require('./Athletes');
 const AWS = require('aws-sdk');
 AWS.config.region = 'us-west-2';
-var sns = new AWS.SNS();
 
 module.exports.get = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
